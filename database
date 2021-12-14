@@ -1,0 +1,6 @@
+[postgresql]
+host=localhost
+port=5432
+dbname=dbms_project
+user=postgres
+password=as
