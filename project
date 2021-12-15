@@ -107,48 +107,38 @@ def insert_query_db(sql: str):
     return
 
 
-def insertUser(c_id_increment, fnampe, lnamep, dob, nationalityy, gender, email, housenum, street, city, state, zipcode, country_code, country, contact_number, nop, ec_fname, ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type):
+def insertUser(cid, fnampe, lnamep, dob, nationalityy, gender, email, housenum, street, city, state, zipcode, country_code, country, contact_number, nop, ec_fname, ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type):
     checkEmail(email)
-    if(dob > datetime.date.today()):
-        st.error('Date is invalid')
-        sql_insert_user = 'insert into vcvt_cust (c_id, fnamep,lnamep,dob,nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type)values ( nextval(\'' + c_id_increment + '\'),\'' + fnampe.strip() + '\' , \'' + lnamep.strip() + '\' ,\'' + str(dob) + '\',\'' + nationalityy.strip() + '\', \'' + gender + '\',\'' + email + '\',' + str(housenum) + ' , ' + str(street) + ',\'' + city.strip() + '\',\'' + state.strip() + '\',' + str(zipcode) + ',' + str(country_code) + ',\'' + country + '\',' + str(contact_number) + ',' + str(nop) + ',\'' + ec_fname.strip() + '\', \'' + ec_lname.strip() + '\',\'' + str(ec_cc) + '\',\'' + str(ec_contact) + '\',\'' + str(pspt_num) + '\',\'' +str(pspt_expd)+ '\',\'' + str(c_type) + '\');'
-        try:
-            df = insert_query_db(sql_insert_user)
-            st.write('User Created!')
-        except Exception as e:
-            print(e)
-            st.write(
-                "Sorry! Something went wrong with your query, please try again."
-            )
+    sql_insert_user = 'insert into vcvt_cust (c_id, fnamep,lnamep,dob,nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type)values ( ' + str(cid) + ',\'' + fnampe.strip() + '\' , \'' + lnamep.strip() + '\' ,\'' + str(dob) + '\',\'' + nationalityy.strip() + '\', \'' + gender + '\',\'' + email + '\',' + str(housenum) + ' , ' + str(street) + ',\'' + city.strip() + '\',\'' + state.strip() + '\',' + str(zipcode) + ',' + str(country_code) + ',\'' + country + '\',' + str(contact_number) + ',' + str(nop) + ',\'' + ec_fname.strip() + '\', \'' + ec_lname.strip() + '\',\'' + str(ec_cc) + '\',\'' + str(ec_contact) + '\',\'' + str(pspt_num) + '\',\'' +str(pspt_expd)+ '\',\'' + str(c_type) + '\');'
+    try:
+        df = insert_query_db(sql_insert_user)
+        st.write('User Created!')
+    except Exception as e:
+        print(e)
+        st.write(
+            "Sorry! Something went wrong with your query, please try again."
+        )
     return
 
-def insertPassenger(p_id_increment, fnampe, lnamep, dob, nationalityy, gender, email, housenum, street, city, state, zipcode, country_code, country, contact_number, nop, ec_fname, ec_lname, ec_cc, ec_contact, pspt_num,pspt_expd, c_type):
-    checkEmail(email)
-    if(dob > datetime.date.today()):
-        st.error('Date is invalid')
-        sql_insert_psngr = 'insert into vcvt_psngr(p_id, fnamep,lnamep,dob,nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact, pspt_num,pspt_expd, c_type)values ( nextval(\'' + p_id_increment + '\'),\'' + fnampe.strip() + '\' , \'' + lnamep.strip() + '\' ,\'' + str(dob) + '\',\'' + nationalityy.strip() + '\', \'' + gender + '\',\'' + email + '\',' + str(housenum) + ' , ' + str(street) + ',\'' + city.strip() + '\',\'' + state.strip() + '\',' + str(zipcode) + ',' + str(country_code) + ',\'' + country + '\',' + str(contact_number) + ',' + str(nop) + ',\'' + ec_fname.strip() + '\', \'' + ec_lname.strip() + '\',\'' + str(ec_cc) + '\',\'' + str(ec_contact) + '\',\'' + str(pspt_num) + '\',\'' +str(pspt_expd)+ '\',\'' + str(c_type) + '\');'
-        try:
-            df = insert_query_db(sql_insert_psngr)
-            st.write('Passenger Added!')
-        except Exception as e:
-            print(e)
-            st.write(
-                "Sorry! Something went wrong with your query, please try again."
-            )
+def insertPassenger(c_id,fnampe, lnamep, dob, nationalityy, gender, email, housenum, street, city, state, zipcode, country_code, country, contact_number, nop, ec_fname, ec_lname, ec_cc, ec_contact, pspt_num,pspt_expd, c_type):
+    sql_insert_psngr = 'insert into vcvt_psngr(c_id,fnamep,lnamep,dob,nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact, pspt_num,pspt_expd, c_type)values ( \''+str(c_id)+ '\', \''+fnampe.strip() + '\' , \'' + lnamep.strip() + '\' ,\'' + str(dob) + '\',\'' + nationalityy.strip() + '\', \'' + gender + '\',\'' + email + '\',' + str(housenum) + ' , ' + str(street) + ',\'' + city.strip() + '\',\'' + state.strip() + '\',' + str(zipcode) + ',' + str(country_code) + ',\'' + country + '\',' + str(contact_number) + ',' + str(nop) + ',\'' + ec_fname.strip() + '\', \'' + ec_lname.strip() + '\',\'' + str(ec_cc) + '\',\'' + str(ec_contact) + '\',\'' + str(pspt_num) + '\',\'' +str(pspt_expd)+ '\',\'' + str(c_type) + '\');'
+    try:
+        df = insert_query_db(sql_insert_psngr)
+        st.write('Passenger Added!')
+    except Exception as e:
+        print(e)
+        st.write(
+            "Sorry! Something went wrong with your query, please try again."
+        )
     return
 
 def main():
-    page_bg_img = '''
-        <style>
-        body {
-        background-image: url("https://images.unsplash.com/photo-1542281286-9e0a16bb7366");
-background-size: cover;
-}
-</style>
-'''
+    from PIL import Image
+    image = Image.open('img.jpg')
+    st.image(image)
 
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-    st.title("Simple Login App")
+    # st.markdown(page_bg_img, unsafe_allow_html=True)
+    st.title("SAME")
 
     menu = ["Home", "Login", "SignUp"]
 
@@ -172,49 +162,13 @@ background-size: cover;
                 temp  = ['New Customer', 'Add a passenger', 'Select Insurance Plan', 'Add Flight details', 'Checkout']
                 choice = st.selectbox('Menu', temp)
                 isvalid = 0
-
+                sql_check_customer = f'select count(*)  as count from vcvt_cust a, userstable b where  b.username = \'{username}\' and b.customerID = a.c_id; '
+                existing = query_db(sql_check_customer)['count'].loc[0]
                 if choice == 'New Customer':
-                    fname = st.text_input('Enter your First name', max_chars=30)
-                    lname = st.text_input('Enter your Last name', max_chars=30)
-                    dob = st.date_input('Date of Birth')
-                    nationalityy = st.text_input('Nationality', max_chars=30)
-                    gender = st.selectbox('Gender', ['M', 'F'])
-                    email = st.text_input('Enter your email', max_chars=30)
-                    housenum = st.number_input('House Number', max_value=9999)
-                    street = st.number_input('street Number', max_value=9999)
-                    city = st.text_input('City', max_chars=30)
-                    state = st.text_input('State', max_chars=30)
-                    zipcode = st.text_input('Zipcode', max_chars=10)
-                    country_code = st.number_input('country code', max_value=999)
-                    country = st.text_input('Country', max_chars=30)
-                    contact_number = st.number_input('contact number', min_value=999999999, max_value=9999999999)
-                    nop = st.number_input('Number of Passengers travelling with you', min_value=99)
-                    ec_fname = st.text_input('Emergency Contact first name', max_chars=30)
-                    ec_lname = st.text_input('Emergency Contact Last name', max_chars=30)
-                    ec_cc = st.number_input('Emergency contact country code', max_value=9999)
-                    ec_contact = st.number_input('Emergency contact number', min_value=999999999, max_value=9999999999)
-                    pspt_num= st.text_input('Passport number', max_chars=15)
-                    pspt_expd = st.date_input('Date of Passport expiry', min_value=datetime.date.today() )
-                    c_type = st.selectbox('Do you have any Booking agent or Membership', ['None', 'Booking Agent','Membership'])
-                    if c_type:
-                        if c_type == 'Booking Agent':
-                            c_type = 'A'
-                        elif c_type == 'Membership':
-                            c_type = 'M'
-                        elif c_type == 'None':
-                            c_type = 'C'
-                    if isvalid == 0:
-                        if st.button('Submit'):
-                            insertUser('c_id_increment', fname, lname, dob, nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type  )
-                            sql_cid = '  SELECT last_value FROM c_id_increment;'
-                            st.write(query_db(sql_cid))
-                            # restaurants = query_db(sql_find_rest)
-                            # planid = st.selectbox('Select a plan:' ,  restaurants['name'].tolist())
-
-                    elif choice == 'New Customer':
+                    if existing == 0:
                         fname = st.text_input('Enter your First name', max_chars=30)
                         lname = st.text_input('Enter your Last name', max_chars=30)
-                        dob = st.date_input('Date of Birth', max_value=datetime.date.today())
+                        dob = st.date_input('Date of Birth',max_value= datetime.date.today())
                         nationalityy = st.text_input('Nationality', max_chars=30)
                         gender = st.selectbox('Gender', ['M', 'F'])
                         email = st.text_input('Enter your email', max_chars=30)
@@ -230,11 +184,10 @@ background-size: cover;
                         ec_fname = st.text_input('Emergency Contact first name', max_chars=30)
                         ec_lname = st.text_input('Emergency Contact Last name', max_chars=30)
                         ec_cc = st.number_input('Emergency contact country code', max_value=9999)
-                        ec_contact = st.number_input('Emergency contact number', min_value=999999999, 
-                        max_value=9999999999)
+                        ec_contact = st.number_input('Emergency contact number', min_value=999999999, max_value=9999999999)
                         pspt_num= st.text_input('Passport number', max_chars=15)
                         pspt_expd = st.date_input('Date of Passport expiry', min_value=datetime.date.today() )
-                        c_type = st.selectbox('Do you have any Booking agent or Membership', ['None', 'Booking Agent', 'Membership'])
+                        c_type = st.selectbox('Do you have any Booking agent or Membership', ['None', 'Booking Agent','Membership'])
                         if c_type:
                             if c_type == 'Booking Agent':
                                 c_type = 'A'
@@ -242,39 +195,128 @@ background-size: cover;
                                 c_type = 'M'
                             elif c_type == 'None':
                                 c_type = 'C'
-                        if isvalid == 0:
-                            if st.button('Submit'):
-                                insertUser('p_id_increment', fname, lname, dob, nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type   )
-                            sql_pid = '  SELECT last_value FROM p_id_increment;'
-                            st.write(query_db(sql_pid))
+                        
+                        if st.button('Submit'):
+                            sql_get_cust_id = f'select customerID from userstable where username = \'{username}\''
+                            insertUser(query_db(sql_get_cust_id)['customerid'].loc[0], fname, lname, dob, nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type  )
                             # restaurants = query_db(sql_find_rest)
                             # planid = st.selectbox('Select a plan:' ,  restaurants['name'].tolist())
-            
-            
-                    elif choice == 'Select Insurance Plan':
-                        sql_insurance_plan = 'select pln_id , p_name , description from vcvt_ispln;'
-                        insuranceplans = query_db(sql_insurance_plan)
+                    elif existing ==1:
+                        sql_get_cust_id = f'select customerID from userstable where username = \'{username}\''
+                        st.write('You are already registered and your customer id is ' + str(query_db(sql_get_cust_id)['customerid'].loc[0]) )
 
-                        planName =   st.selectbox("Choose a insurance plan", insuranceplans['p_name'].tolist())
-                        if planName:
-                            plan_id = insuranceplans.loc[insuranceplans['p_name'] == planName, 'pln_id'].iloc[0]
-                        
-                        if st.button('Submit'): 
-                            sql_cust_ispln = 'INSERT INTO VCVT_CUST_ISPLN (PLN_ID, P_ID) VALUES (10,11111);     '
-                        
-                        if isvalid == 0:
-                            if st.button('Submit'):
-                                insertUser('p_id_increment', fname, lname, dob, nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type   )
-                            sql_pid = '  SELECT last_value FROM p_id_increment;'
-                            st.write(query_db(sql_pid))
-                            # restaurants = query_db(sql_find_rest)
-                            # planid = st.selectbox('Select a plan:' ,  restaurants['name'].tolist())
+                elif choice == 'Add a passenger':
+                    sql_get_cust_id = f'select customerID from userstable where username = \'{username}\''
+                    c_id= str(query_db(sql_get_cust_id)['customerid'].loc[0])
+                    fname = st.text_input('Enter your First name', max_chars=30)
+                    lname = st.text_input('Enter your Last name', max_chars=30)
+                    dob = st.date_input('Date of Birth', max_value=datetime.date.today())
+                    nationalityy = st.text_input('Nationality', max_chars=30)
+                    gender = st.selectbox('Gender', ['M', 'F'])
+                    email = st.text_input('Enter your email', max_chars=30)
+                    housenum = st.number_input('House Number', max_value=9999)
+                    street = st.number_input('street Number', max_value=9999)
+                    city = st.text_input('City', max_chars=30)
+                    state = st.text_input('State', max_chars=30)
+                    zipcode = st.text_input('Zipcode', max_chars=10)
+                    country_code = st.number_input('country code', max_value=999)
+                    country = st.text_input('Country', max_chars=30)
+                    contact_number = st.number_input('contact number', min_value=999999999, max_value=9999999999)
+                    nop = st.number_input('Number of Passengers travelling with you', min_value=99)
+                    ec_fname = st.text_input('Emergency Contact first name', max_chars=30)
+                    ec_lname = st.text_input('Emergency Contact Last name', max_chars=30)
+                    ec_cc = st.number_input('Emergency contact country code', max_value=9999)
+                    ec_contact = st.number_input('Emergency contact number', min_value=999999999, 
+                    max_value=9999999999)
+                    pspt_num= st.text_input('Passport number', max_chars=15)
+                    pspt_expd = st.date_input('Date of Passport expiry', min_value=datetime.date.today() )
+                    c_type = st.selectbox('Do you have any Booking agent or Membership', ['None', 'Booking Agent', 'Membership'])
+                    if c_type:
+                        if c_type == 'Booking Agent':
+                            c_type = 'A'
+                        elif c_type == 'Membership':
+                            c_type = 'M'
+                        elif c_type == 'None':
+                            c_type = 'C'
+                    if st.button('Submit'):
+                        insertPassenger(c_id,fname, lname, dob, nationalityy, gender, email, housenum, street,city, state, zipcode,country_code,country,contact_number,nop,ec_fname,ec_lname, ec_cc, ec_contact,pspt_num,pspt_expd, c_type )
+                        sql_pid = '  SELECT max(p_id) as max FROM vcvt_psngr;'
+                        st.write('Your passenger id is ',query_db(sql_pid)['max'].loc[0])
 
             
+                elif choice == 'Select Insurance Plan':
+                    sql_insurance_plan = 'select pln_id , p_name , description from vcvt_ispln;'
+                    insuranceplans = query_db(sql_insurance_plan)
+                    p_id = st.number_input("Enter you Passenger ID", min_value=1)
+                    planName =   st.selectbox("Choose a insurance plan", insuranceplans['p_name'].tolist())
+                    if planName:
+                        plan_id = insuranceplans.loc[insuranceplans['p_name'] == planName, 'pln_id'].iloc[0]
+                        st.write(insuranceplans.loc[insuranceplans['p_name'] == planName, 'description'].iloc[0])
+                    if st.button('Submit'): 
+                        sql_cust_ispln = f'INSERT INTO VCVT_CUST_ISPLN (PLN_ID, P_ID) VALUES ({plan_id},{p_id});     '
+                        insert_query_db(sql_cust_ispln)
+
+
+                elif choice == 'Add Flight details':
+                    p_id = st.number_input("Enter you Passenger ID", min_value=1)
+                    sql_flight_detail='select * from VCVT_FLT;'
+                    flightdetail=query_db(sql_flight_detail)
+                    flightid= st.selectbox('Choose your flight ID', flightdetail['f_id'].tolist())
+                    if flightid:
+                        flight=flightdetail.loc[flightdetail['f_id'] == flightid, 'f_id'].iloc[0]
+                        #flightdetail.rename(columns={"f_id":"Flight ID", "d_time":"Departure time","d_tz":"Departure Time zone","arr_time":"Arrival time zone", "a_tz":"Arrival time zone","am_id":"Aircraft Model","arpt_code_arv":"Arrival airport code","arpt_code_dep":"Departure airport code" })
+                        st.dataframe(flightdetail.loc[flightdetail['f_id']==flightid].rename(columns={"f_id":"Flight ID", "d_time":"Departure time","d_tz":"Departure Time zone","arr_time":"Arrival time", "a_tz":"Arrival time zone","am_id":"Aircraft Model","arpt_code_arv":"Arrival airport code","arpt_code_dep":"Departure airport code" }))
+
+                    sql_airline_detail='select a_id, a_name from VCVT_AL;'
+                    Airlinedetail=query_db(sql_airline_detail)
+                    airlineid= st.selectbox('Choose your Airline', Airlinedetail['a_name'].tolist())
+                    airline=0
+                    if airlineid:
+                        airline=Airlinedetail.loc[Airlinedetail['a_name'] == airlineid, 'a_id'].iloc[0]
+                    
+                    sql_meal_detail='select * from VCVT_MEAL;'
+                    mealdetail=query_db(sql_meal_detail)
+                    mealid= st.selectbox('Choose your Meal Plan', mealdetail['meal_plan'].tolist())
+                    Meal=0
+                    if mealid:
+                        Meal=mealdetail.loc[mealdetail['meal_plan'] == mealid, 'meal_id'].iloc[0]
+                        
+                    sql_cabin_detail='select * from VDVT_cabin;'
+                    cabindetail=query_db(sql_cabin_detail)
+                    cabinid= st.selectbox('Choose your Cabin Class', cabindetail['cabin_class'].tolist())
+                    Cabin=0
+                    if cabinid:
+                        Cabin=cabindetail.loc[cabindetail['cabin_class'] == cabinid, 'cabin_id'].iloc[0]
+
+                    sql_special_request='select * from VCVT_spereq;'
+                    specialREequest=query_db(sql_special_request)
+                    speREq= st.multiselect('Choose any special request', specialREequest['sr_name'].tolist())
+                    
+# adding at the submit button
+                    if st.button('Submit'): 
+                        sql_psngr_flight = f'INSERT INTO VCVT_FL_PR (P_ID, A_ID, F_ID, MEAL_ID, CABIN_ID) VALUES ({p_id}, {airline}, {flightid},\'{Meal}\', \'{Cabin}\');'
+                        insert_query_db(sql_psngr_flight) 
+                        for i in speREq:
+                            temp=specialREequest.loc[specialREequest['sr_name'] == i, 'sr_id'].iloc[0]
+                            sql_psngr_flight = f'INSERT INTO VCVT_SR_FL_PR (P_ID, SR_ID) VALUES ({p_id}, {temp});'
+                            insert_query_db(sql_psngr_flight)                             
+                        st.write('Flight Detail Added. To add the connecting flight, please add flight detail again')
+
+                elif choice == 'Checkout':
+                    sql_invoice_num=f'select last_value from invoice_increment'
+                    sql_get_cust_id = f'select customerID from userstable where username = \'{username}\''
+                    c_id= str(query_db(sql_get_cust_id)['customerid'].loc[0])                    
+                    sql_invoice_total= f'select sum(b.cpp) as total from vcvt_cust_ispln a,vcvt_ispln b,vcvt_psngr c where a.p_id =c.p_id and a.pln_id = b.pln_id and c.c_id={c_id};'
+                    
+                    
+                    st.header('Invoice')
+                    st.subheader('Invoice ID:  ' + str(query_db(sql_invoice_num)['last_value'].loc[0]))
+                    st.subheader('Total Amount Payable:  '+ str(query_db(sql_invoice_total)['total'].loc[0] ))
+                    st.button('Proceed to Payment')                 
+              
             
-            
-            else:
-                st.warning("Incorrect Username/Password")
+        else:
+            st.warning("Incorrect Username/Password")
     elif choice == "SignUp":
         st.subheader("Create New Account")
         new_user = st.text_input("Username")
@@ -282,6 +324,7 @@ background-size: cover;
         if st.button("Signup"):
             add_userdata(new_user, make_hashes(new_password))
             st.success("You have successfully created a valid Account")
+            st.write('Your Customer id is ' + str(query_db(f'select max(customerID) as custid from userstable')['custid'].loc[0]))
             st.info("Go to Login Menu to login")
 
 
