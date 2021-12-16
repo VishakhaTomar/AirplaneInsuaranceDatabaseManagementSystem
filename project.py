@@ -171,11 +171,11 @@ def main():
                     temp = ['Add Airline','Add Airport','Add Insurance Plans', 'Add Flights']
                     choice = st.selectbox('Menu', temp)
                     if choice == 'Add Airline':
-                        a_id = st.number_input('Enter the ID')
-                        a_name=st.text_input('Enter Airlines name', max_char=30)
-                        main_hub=st.text_input('Enter Main hum of the airline', max_char=30)
-                        hq_city=st.text_input('Enter Headquarters of the airline', max_char=30)
-                        country=st.text_input('Enter Country of the airline', max_char=30)
+                        a_id = st.number_input('Enter the ID',max_value=99999)
+                        a_name=st.text_input('Enter Airlines name', max_chars=30)
+                        main_hub=st.text_input('Enter Main hum of the airline', max_chars=30)
+                        hq_city=st.text_input('Enter Headquarters of the airline', max_chars=30)
+                        country=st.text_input('Enter Country of the airline', max_chars=30)
                         if st.button('Submit'):
                             sql_input_airline= f'INSERT INTO VCVT_AL (a_id, a_name, main_hub, hq_city, country) VALUES ({a_id},\'{a_name}\',\'{main_hub}\', \'{hq_city}\',\'{country}\');'
                             insert_query_db(sql_input_airline)
@@ -364,7 +364,6 @@ def main():
                     elif choice == 'Checkout':
                         sql_invoice_num=f'select last_value from invoice_increment'
                         sql_get_cust_id = f'select customerID from userstable where username = \'{username}\''
-                        sql_get_cust_id = 'select customerID from userstable where username = {usernm}'.format(usernm=sql.Placeholder(username))
                         c_id= str(query_db(sql_get_cust_id)['customerid'].loc[0])                    
                         sql_invoice_total= f'select sum(b.cpp) as total from vcvt_cust_ispln a,vcvt_ispln b,vcvt_psngr c where a.p_id =c.p_id and a.pln_id = b.pln_id and c.c_id={c_id};'
                         
@@ -378,7 +377,7 @@ def main():
                         st.button('Proceed to Payment')  
 #   SQL Join command  
                         sql_invoice_details= f'INSERT INTO VCVT_INVCE_NMBR (INVOICE_NUMBER, INVOICE_DATE, INVOICE_AMT, C_ID) VALUES ({invoiceID}, {datetime.date.today}, {invoicetotal}, {c_id});'               
-                        insert_query_db(sql_invoice_details)
+                        insert_query_db(sql_invoice_total)
                         item=0
                         if item==1:
                             query_db(sql_get_customer_id)
