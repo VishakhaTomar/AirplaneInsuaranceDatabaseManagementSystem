@@ -155,6 +155,24 @@ def main():
         st.subheader("Login Section")
         username = st.sidebar.text_input("User Name")
         password = st.sidebar.text_input("Password", type='password')
+        if st.sidebar.checkbox("Change/Forget Password"):
+            sql_security = f'select security_question , security_answer from userstable where username= \'{username}\';'
+            changepwd = query_db(sql_security)
+            st.write("Your security Question")
+            st.write(changepwd['security_question'].loc[0])
+            useranswer = st.text_input('Input your answer here')
+            if st.checkbox("Proceed"):
+                if (useranswer == changepwd['security_answer'].loc[0]):
+                    st.write(username)
+                    updated_password = st.text_input("Enter your new password", type='password')
+                    if st.button('Submit'):
+                        hashed_pswd = make_hashes(updated_password)
+                        update_password_sql = f'UPDATE USERSTABLE SET password = \'{hashed_pswd}\' where username= \'{username}\';'
+                        insert_query_db(update_password_sql)
+                        st.success("Password updated, go to login again")
+                else:
+                    st.write("Wrong answer, please try again")
+
         if st.sidebar.checkbox("Login"):
 			# if password == '12345':
             hashed_pswd = make_hashes(password)
