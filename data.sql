@@ -289,3 +289,15 @@ INSERT INTO VCVT_MEMBERSHIP (M_ID, MEM_NAME,A_ID)VALUES (9, 'AirFrance Flying Bl
 INSERT INTO VCVT_MEMBERSHIP (M_ID, MEM_NAME,A_ID)VALUES (10, 'Virgin Atlantic Flying Club',121);
 INSERT INTO VCVT_MEMBERSHIP (M_ID, MEM_NAME,A_ID)VALUES (11, 'Emirates Skywards Blue/Silver/Gold/Platinum',119);
 
+
+--PROCEDURE FOR CONCURRENT TRANSACTIONS
+CREATE OR REPLACE FUNCTION vcvt_insertplan (pln_id, RETURNS VOID AS $$
+p_name, description
+$$ LANGUAGE plpgsql;, cpp)
+is
+begin
+INSERT INTO vcvt_ispln (PLN_ID, p_name,description, cpp) VALUES (pln_id,p_name,description, cpp);
+
+END vcvt_insertplan;
+--PROCEDURE END
+
