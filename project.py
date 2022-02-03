@@ -196,12 +196,12 @@ def main():
 
         if st.sidebar.checkbox("Login"):
             # if password == '12345':
-            hashed_pswd = make_hashes(loginpassword)
-            result = login_user(username, check_hashes(loginpassword, hashed_pswd))
+            hashed_pswd = make_hashes(password)
+            result = login_user(username, check_hashes(password, hashed_pswd))
             print(result)
             if result:
                 st.write("Logged In as {}".format(username))
-                userType = login_usertype(username, check_hashes(loginpassword, hashed_pswd))
+                userType = login_usertype(username, check_hashes(password, hashed_pswd))
                 user = userType['usertype'].loc[0]
 
                 # user = st.write(login_usertype.loc[login_usertype,'usertype'].iloc[0])
