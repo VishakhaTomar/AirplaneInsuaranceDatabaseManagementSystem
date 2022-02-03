@@ -226,8 +226,11 @@ def main():
                         description = st.text_input('Insurance description', max_chars=500)
                         cpp = st.number_input('Cost per plan')
                         if st.button('Submit'):
-                            sql_input_insurance = f'INSERT INTO VCVT_ISPLN (pln_id, p_name, description, cpp) VALUES ({pln_id},\' {p_name}\', \'{description}\',{cpp});'
-                            insert_query_db(sql_input_insurance)
+                            #sql_input_insurance = f'INSERT INTO VCVT_ISPLN (pln_id, p_name, description, cpp) VALUES ({pln_id},\' {p_name}\', \'{description}\',{cpp});'
+                            #insert_query_db(sql_input_insurance)
+    #CONCURRENT TRANSACTIONS BY PROCEDURES
+                            procedureinsertinsurance = f'EXECUTE vcvt_insertplan({pln_id},\' {p_name}\', \'{description}\',{cpp});'
+                            insert_query_db(procedureinsertinsurance)
                             st.write('Insurance Plan Added')
 
                     if choice == 'Add Airport':
