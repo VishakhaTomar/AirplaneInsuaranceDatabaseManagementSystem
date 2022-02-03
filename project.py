@@ -406,12 +406,14 @@ def main():
         st.subheader("Create New Account")
         new_user = st.text_input("Username")
         new_password = st.text_input("Password", type='password')
+        security_question = st.text_input("Enter your security question")
+        security_answer = st.text_input("Enter your answer for the security question")
         if st.button("Signup"):
-            add_userdata(new_user, make_hashes(new_password))
+            add_userdata(new_user, make_hashes(new_password), security_question, security_answer)
             st.success("You have successfully created a valid Account")
-            st.write('Your Customer id is ' + str(query_db(f'select max(customerID) as custid from userstable')['custid'].loc[0]))
+            st.write('Your Customer id is ' + str(
+                query_db(f'select max(customerID) as custid from userstable')['custid'].loc[0]))
             st.info("Go to Login Menu to login")
-
-
+		
 if __name__ == '__main__':
     main()
